@@ -32,16 +32,10 @@ end
 def position_taken?(board, index)
   position = board[index]
 
-  if position == " "
-    false
-  elsif position == ""
-    false
-  elsif position == nil
-    false
-  elsif position == "X"
+  if position == "X" || position == "O"
     true
-  elsif position == "O"
-    true
+  else
+    false
   end
 end
 
@@ -87,6 +81,7 @@ def won?(board)
     win_index_1 = win_combo[0]
     win_index_2 = win_combo[1]
     win_index_3 = win_combo[2]
+    # check if position is taken
 
     # compare win_combo to corresponding board positions
     if (board[win_index_1] == "X" && board[win_index_2] == "X" && board[win_index_3] == "X") || (board[win_index_1] == "O" && board[win_index_2] == "O" && board[win_index_3] == "O")
@@ -106,17 +101,17 @@ def draw?(board)
   # returns true if the board has
   # not been won but is full, false if the board is not won and the board is not
   # full, and false if the board is won
-  if (!(won?(board)) && full?(board))
-    true
-  elsif (!(won?(board)) && !(full?(board))) || won?(board)
-    false
-  end
+  !(won?(board)) && full?(board)
+#    true
+#  elsif (!(won?(board)) && !(full?(board))) || won?(board)
+#    false
+#  end
 end
 
 def over?(board)
   # eturns true if the board has
   # been won, is a draw, or is full.
-  (won?(board) || draw?(board)) ? true : false
+  won?(board) || draw?(board)
 end
 
 def winner(board)
@@ -127,16 +122,15 @@ def winner(board)
 end
 
 def play(board)
-  is_over = false
-  while !is_over
-    turn(board)
-    if over?(board)
+#  is_over = false
+turn(board) until over?(board)
+#    if over?(board)
       if won?(board)
-        puts "Congratulations, #{winner(board)}!"
+        puts "Congratulations #{winner(board)}!"
       elsif draw?(board)
         puts "Cat's Game!"
       end
-      is_over = over?(board)
-    end
-  end
+#      is_over = over?(board)
+#    end
+#  end
 end
