@@ -30,17 +30,17 @@ def move (board, index, token)
 end
 
 def position_taken?(board, index)
-  square = board[index]
+  position = board[index]
 
-  if square == " "
+  if position == " "
     false
-  elsif square == ""
+  elsif position == ""
     false
-  elsif square == nil
+  elsif position == nil
     false
-  elsif square == "X"
+  elsif position == "X"
     true
-  elsif square == "O"
+  elsif position == "O"
     true
   end
 end
@@ -99,16 +99,16 @@ def won?(board)
 end
 
 def full?(board)
-  board.none?{|cell| cell == " " || cell == ""}
+  board.all?{|position| position == "X" || position == "O"}
 end
 
 def draw?(board)
   # returns true if the board has
   # not been won but is full, false if the board is not won and the board is not
   # full, and false if the board is won
-  if (!won?(board) && full?(board))
+  if (!(won?(board)) && full?(board))
     true
-  elsif (!won?(board) && !full?(board)) || won?(board)
+  elsif (!(won?(board)) && !(full?(board))) || won?(board)
     false
   end
 end
@@ -116,7 +116,7 @@ end
 def over?(board)
   # eturns true if the board has
   # been won, is a draw, or is full.
-  (won?(board) || draw?(board) || full?(board)) ? true : false
+  (won?(board) || draw?(board)) ? true : false
 end
 
 def winner(board)
@@ -127,12 +127,16 @@ def winner(board)
 end
 
 def play(board)
-  until over?(board)
+  is_over = false
+  while !is_over
     turn(board)
-    if won?(board)
-      puts "Congratulations, #{winner(board)}!"
-    elsif draw?(board)
-      puts "cats"
+    if over?(board)
+      if won?(board)
+        puts "Congratulations, #{winner(board)}!"
+      elsif draw?(board)
+        puts "Cat's Game!"
+      end
+      is_over = over?(board)
     end
   end
 end
