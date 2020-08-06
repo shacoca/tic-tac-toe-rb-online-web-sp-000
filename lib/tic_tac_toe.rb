@@ -60,7 +60,7 @@ def turn(board)
   index = input_to_index(input)
 
   if valid_move?(board, index)
-    move(board, index)
+    move(board, index, current_player(board))
     display_board(board)
   else
     turn(board)
@@ -131,7 +131,7 @@ def play(board)
     turn(board)
   end
   if won?(board)
-    puts "Congratulations, #{winner}!"
+    puts "Congratulations, #{winner(board)}!"
   elsif draw?(board)
     puts "cats"
   end
