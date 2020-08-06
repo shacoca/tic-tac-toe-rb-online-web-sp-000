@@ -73,7 +73,7 @@ def turn_count(board)
 end
 
 def current_player(board)
-  player = turn_count(board).odd ? "X" : "O"
+  player = turn_count(board).even? ? "X" : "O"
   player
 end
 
@@ -124,4 +124,15 @@ def winner(board)
   # has won the game given a winning board.
   win = won?(board)
   win ? board[win[0]] : nil
+end
+
+def play(board)
+  until won?(board)
+    turn(board)
+  end
+  if won?(board)
+    puts "Congratulations, #{winner}!"
+  elsif draw?(board)
+    puts "cats"
+
 end
