@@ -134,5 +134,5 @@ def play(board)
     puts "Congratulations, #{winner}!"
   elsif draw?(board)
     puts "cats"
-
+  end
 end
